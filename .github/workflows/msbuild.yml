@@ -44,10 +44,10 @@ jobs:
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
     - name: Create ZIP
-      run: zip -r ${{env.BUILD_CONFIGURATION}}_x64.zip x64/${{env.BUILD_CONFIGURATION}}
+      run: 7z a -t7z -mx=9 ${{env.BUILD_CONFIGURATION}}_x64.7z ./build/ gpocheck/x64/${{env.BUILD_CONFIGURATION}}/gpocheck.exe gpocheck/x64/${{env.BUILD_CONFIGURATION}}/gpocheck.pdb
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1
       with:
         name: Upload ZIP Package
-        path: ${{env.BUILD_CONFIGURATION}}_x64.zip
+        path: ${{env.BUILD_CONFIGURATION}}_x64.7z
